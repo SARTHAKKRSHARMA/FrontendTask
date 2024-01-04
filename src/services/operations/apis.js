@@ -87,7 +87,7 @@ export const archieveAllCall = async function (callList) {
     const toastId = toast.loading("Archiving Call List");
     let success = true;
     try {        
-        const filteredList = callList.filter((call) => call?.to && call?.from && call?.via && call.from !== call.to &&  call.is_archived === false);
+        const filteredList = callList.filter((call) => call?.to && call?.from && call?.via  &&  call.is_archived === false);
 
         // Use Promise.all to wait for all asynchronous operations to complete
         await Promise.all(filteredList.map(async (call) => {

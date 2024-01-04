@@ -37,7 +37,7 @@ const CallList = () => {
       const setCurrPageFunction = async () => {
         dispatch(setLoading(true));
         dispatch(setCurrPage("inbox"));
-        let filteredPage = callList.filter((item)=> item?.to && item?.from && item?.via && item.from !== item.to && item?.is_archived === false && item?.direction==="inbound");
+        let filteredPage = callList.filter((item)=> item?.to && item?.from && item?.via &&  item?.is_archived === false && item?.direction==="inbound");
         filteredPage.sort((a, b) => new Date(b?.created_at) - new Date(a?.created_at));
 
         const groupedCalls = filteredPage.reduce((result, call) => {
