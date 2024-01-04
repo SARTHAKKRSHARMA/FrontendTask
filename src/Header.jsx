@@ -4,7 +4,7 @@ import NavBar from './components/core/NavBar';
 
 const Header = () => {
   return (
-    <header className=' w-[100%] px-[20px] py-[20px] text-center shadow-[0_1px_0_0_rgba(0,0,0,0.1)] flex flex-row items-center justify-between'>
+    <header className=' w-[100%] px-[20px] py-[20px] bg-[#F1F2FF] text-center shadow-[0_1px_0_0_rgba(0,0,0,0.1)] flex flex-row items-center justify-between'>
       <svg className='  h-[40px] w-[30%]' width='486px' height='168px' viewBox='0 0 486 168' version='1.1' xmlns='http://www.w3.org/2000/svg'>
         <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
           <g transform='translate(207.000000, 24.000000)'>

@@ -20,10 +20,10 @@ const NavBar = () => {
             dispatch(setLoading(true));
             dispatch(setCurrPage(newCurrPage));
             let filteredPage = [];
-            if(newCurrPage === 'all') filteredPage = [...callList];
+            if(newCurrPage === 'all') filteredPage = callList.filter((item) => item?.is_archived === false);
             else if (newCurrPage === "inbox")
             {
-                filteredPage = callList.filter((item)=> item?.created_at && item?.direction==="inbound");
+                filteredPage = callList.filter((item)=> item?.is_archived === false && item?.created_at && item?.direction==="inbound");
             }
             else
             {
@@ -64,7 +64,7 @@ const NavBar = () => {
                 <button onClick={() => setIsVisible(true)} disabled={loading} className={`font-inter text-[16px] transition-all duration-200`} ><VscSettings /></button>
                 {
                     isVisible && (
-                        <div className=' absolute h-[20px] w-[80px] top-[2.5em] -right-5 border-2 border-black px-3 py-4 flex items-center justify-center' ref={ref}>
+                        <div className=' absolute h-[20px] w-[80px] top-[2.5em] -right-5 border-2 border-black py-4 flex items-center justify-center rounded-md' ref={ref}>
                             <button onClick={() => onClickHandler("archieved")} disabled={loading} className={`font-inter text-[12px] transition-all duration-200`} >Archieved Calls</button>
                         </div>
                     )
