@@ -35,7 +35,6 @@ const CallList = () => {
 
     useEffect(() => {
       const setCurrPageFunction = async () => {
-        console.log("Function Called");
         dispatch(setLoading(true));
         dispatch(setCurrPage("inbox"));
         let filteredPage = callList.filter((item)=> item?.to && item?.from && item?.via && item.from !== item.to && item?.is_archived === false && item?.direction==="inbound");
