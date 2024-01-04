@@ -20,14 +20,14 @@ const NavBar = () => {
             dispatch(setLoading(true));
             dispatch(setCurrPage(newCurrPage));
             let filteredPage = [];
-            if(newCurrPage === 'all') filteredPage = callList.filter((item) => item?.is_archived === false);
+            if(newCurrPage === 'all') filteredPage = callList.filter((item) => item?.to && item?.from && item?.via && item.from !== item.to &&  item?.is_archived === false);
             else if (newCurrPage === "inbox")
             {
-                filteredPage = callList.filter((item)=> item?.is_archived === false && item?.created_at && item?.direction==="inbound");
+                filteredPage = callList.filter((item)=> item?.to && item?.from && item?.via && item.from !== item.to &&  item?.is_archived === false && item?.created_at && item?.direction==="inbound");
             }
             else
             {
-                filteredPage = callList.filter((item) => item?.created_at && item?.is_archived);
+                filteredPage = callList.filter((item) => item?.to && item?.from && item?.via && item.from !== item.to &&   item?.created_at && item?.is_archived);
                 setIsVisible(false);
             }
             

@@ -35,9 +35,10 @@ const CallList = () => {
 
     useEffect(() => {
       const setCurrPageFunction = async () => {
+        console.log("Function Called");
         dispatch(setLoading(true));
         dispatch(setCurrPage("inbox"));
-        let filteredPage = callList.filter((item)=>  item?.is_archived === false && item?.direction==="inbound");
+        let filteredPage = callList.filter((item)=> item?.to && item?.from && item?.via && item.from !== item.to && item?.is_archived === false && item?.direction==="inbound");
         filteredPage.sort((a, b) => new Date(b?.created_at) - new Date(a?.created_at));
 
         const groupedCalls = filteredPage.reduce((result, call) => {
@@ -53,7 +54,7 @@ const CallList = () => {
         dispatch(setCurrPageCallList(sortedCallsArray));
         dispatch(setLoading(false));    
     }
-    setCurrPageFunction();
+    setCurrPageFunction();  
     }, [callList]);
 
     if(loading)

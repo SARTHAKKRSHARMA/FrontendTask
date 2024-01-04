@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCallList, setLoading } from '../../slices/callListSlice';
 import { RiInboxUnarchiveFill, RiInboxArchiveFill } from "react-icons/ri";
@@ -11,6 +11,7 @@ import { archieveAllCall, archiveAll, getCallList, resetAll } from '../../servic
 const CallListEntry = () => {
     const {currPageCallList, currPage} = useSelector(state => state.currPage);
     const {loading, callList} = useSelector(state => state.callList);
+    const [archived, setArchived] = useState(false);
     const dispatch = useDispatch();
 
     const unarchiveHandler = async () => {
@@ -26,9 +27,12 @@ const CallListEntry = () => {
 
     const archiveHandler = async () => {
       dispatch(setLoading(true));
-      await archieveAllCall(callList);
-      const response = await getCallList();
-      dispatch(setCallList(response));
+      const success = await archieveAllCall(callList);
+      if(success)
+      {
+        const response = await getCallList();
+        dispatch(setCallList(response));
+      }
       dispatch(setLoading(false));
     }
 
