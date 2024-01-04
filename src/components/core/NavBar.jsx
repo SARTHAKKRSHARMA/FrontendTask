@@ -64,7 +64,7 @@ const NavBar = () => {
                 <button onClick={() => setIsVisible(true)} disabled={loading} className={`font-inter text-[16px] transition-all duration-200`} ><VscSettings /></button>
                 {
                     isVisible && (
-                        <div className=' absolute h-[20px] w-[80px] top-[2.5em] -right-5 border-2 border-black py-4 flex items-center justify-center rounded-md' ref={ref}>
+                        <div className=' absolute h-[20px] w-[80px] top-[2.5em] -right-5 border-2 border-black py-4 flex items-center justify-center rounded-md bg-[#DBDDEA]' ref={ref}>
                             <button onClick={() => onClickHandler("archieved")} disabled={loading} className={`font-inter text-[12px] transition-all duration-200`} >Archieved Calls</button>
                         </div>
                     )
