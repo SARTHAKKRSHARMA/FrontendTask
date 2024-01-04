@@ -10,7 +10,7 @@ import { archiveAll, getCallList, resetAll } from '../../services/operations/api
 
 const CallListEntry = () => {
     const {currPageCallList, currPage} = useSelector(state => state.currPage);
-    const {loading, callList} = useSelector(state => state.callList);
+    const {loading} = useSelector(state => state.callList);
     const dispatch = useDispatch();
 
     const unarchiveHandler = async () => {

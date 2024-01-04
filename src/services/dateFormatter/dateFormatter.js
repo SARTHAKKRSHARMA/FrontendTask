@@ -24,3 +24,26 @@ export function formatTime(inputDateString) {
     const formattedTime = inputDate.toLocaleTimeString('en-US', options);
     return formattedTime;
   }
+
+
+export function formatDuration(durationIns) {
+    const seconds = Math.floor((durationIns ) % 60);
+    const minutes = Math.floor((durationIns / (60)) % 60);
+    const hours = Math.floor(durationIns / (60 * 60));
+  
+    const formattedDuration = [];
+  
+    if (hours > 0) {
+      formattedDuration.push(`${hours} hr`);
+    }
+  
+    if (minutes > 0) {
+      formattedDuration.push(`${minutes} min`);
+    }
+  
+    if (seconds > 0 || (hours === 0 && minutes === 0)) {
+      formattedDuration.push(`${seconds} sec`);
+    }
+  
+    return formattedDuration.join(' ');
+  }

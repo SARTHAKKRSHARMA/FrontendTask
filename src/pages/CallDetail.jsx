@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getCallDetail, toggleArchiveCall } from '../services/operations/apis';
 import { RiInboxUnarchiveFill, RiInboxArchiveFill } from "react-icons/ri";
+import { MdCallMissedOutgoing, MdCallMissed } from "react-icons/md";
+import { CiVoicemail } from "react-icons/ci";
+import { MdCall } from "react-icons/md";
+import { formatDuration, formatTime } from '../services/dateFormatter/dateFormatter'
+
 
 
 const CallDetail = () => {
@@ -10,7 +15,6 @@ const CallDetail = () => {
   const {id} = useParams("id");
   const [callDetail, setCallDetail] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(callDetail);
   
   const fetchCallDetail = async () => {
     setLoading(true);
@@ -59,7 +63,23 @@ const CallDetail = () => {
                   </div>
               }
               <div className=' flex flex-col gap-[1.5rem] w-[100%]'>
+                      <div className=' flex flex-row items-center gap-2'>
+                          <p className=' font-bold font-inter'>Call Status:</p>
+                          {    
+                              callDetail?.call_type === "missed" ? 
+                              callDetail?.direction === "outbound" ? 
+                                <div className=' flex flex-row items-center gap-3'><MdCallMissedOutgoing className=' text-[18px] text-red-500' /> <span>Not Answered at :{formatTime(callDetail?.created_at)}</span></div> : 
+                                <div className=' flex flex-row items-center gap-3'><MdCallMissed className=' text-[18px] text-red-500' /> <span>Missed Call at : {formatTime(callDetail?.created_at)}</span></div>  : 
+                                callDetail?.call_type === "voicemail" ? <div className=' flex flex-row items-center gap-3'><CiVoicemail className=' text-[18px] text-yellow-600' /> <span>Voice Mailed at : {formatTime(callDetail?.created_at)}</span> </div> : 
+                                <div className=' flex flex-row items-center gap-3'><MdCall className=' text-[18px] text-green-600' /> <span>Called At: {formatTime(callDetail?.created_at)} </span> </div> 
+                          }
+                      </div>
 
+                      <p className=' flex flex-row items-center gap-3'><span className=' font-bold font-inter '>Call Duration</span> : {formatDuration(callDetail?.duration)}</p>
+                      
+                      <div className=' flex flex-row items-center gap-3'>
+                      <span className=' font-inter font-bold'>Caller Detail</span>   : { callDetail?.direction === "outbound" ? callDetail?.to ? <p className=' text-[#2C333F]'>{callDetail?.to}</p> : callDetail?.via ? <p className=' text-[#2C333F]'>{callDetail?.via}</p> : <p className=' text-[#2C333F]'>-</p> : callDetail?.from ? <p className=' text-[#2C333F]'>{callDetail?.from}</p> : callDetail?.via ? <p className=' text-[#2C333F]'>{callDetail?.via}</p> : <p className=' text-[#2C333F]'>-</p> }
+                      </div>
               </div>
 
             </div>
