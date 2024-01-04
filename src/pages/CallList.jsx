@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {useSelector, useDispatch} from "react-redux"
 import { setCallList, setLoading } from '../slices/callListSlice';
 import { getCallList } from '../services/operations/apis';
-import { setCurrPageCallList } from '../slices/currPageSlice';
+import { setCurrPage, setCurrPageCallList } from '../slices/currPageSlice';
 import CallListEntry from '../components/core/CallListEntry';
 
 const CallList = () => {
@@ -36,6 +36,7 @@ const CallList = () => {
     useEffect(() => {
       const setCurrPageFunction = async () => {
         dispatch(setLoading(true));
+        dispatch(setCurrPage("inbox"));
         let filteredPage = callList.filter((item)=>  item?.is_archived === false && item?.direction==="inbound");
         filteredPage.sort((a, b) => new Date(b?.created_at) - new Date(a?.created_at));
 
