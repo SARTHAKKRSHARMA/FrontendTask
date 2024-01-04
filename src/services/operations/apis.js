@@ -82,3 +82,23 @@ export const toggleArchiveCall = async function (callId, archive) {
     toast.dismiss(toastId);
     return success;
 }
+
+export const archieveAllCall = async function (callList)
+{
+    const toastId = toast.loading("Archiving Call List");
+    try
+    {        
+        const filteredList = callList.filter((call) => call.is_archived === false);
+        filteredList.forEach(async (call) => {
+            const url = BASE_URL + "/activities/" + call.id;
+            const response = await apiConnector("PATCH", url, {is_archived: true});
+            console.log(response)
+        })
+        toast.success(`Course archieved Successfully`);           
+    } catch(e)
+    {
+        console.log(e);
+        toast.error(`Error occured while archieving call`);
+    }
+    toast.dismiss(toastId);
+}
